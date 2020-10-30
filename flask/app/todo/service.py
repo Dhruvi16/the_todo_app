@@ -10,7 +10,7 @@ class Service(object):
    if not user_id:
      raise Exception("user id not provided")
 
- def find_all_Tasks(self):
+ def find_all_tasks(self):
    Tasks  = self.task_client.find_all({'user_id': self.user_id})
    return [self.dump(task) for task in Tasks]
 
