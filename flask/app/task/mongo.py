@@ -3,7 +3,7 @@ from pymongo import MongoClient
 
 COLLECTION_NAME = 'tasks'
 
-class MongoRepository(object):
+class MongoTask(object):
  def __init__(self):
    mongo_url = os.environ.get('MONGO_URL')
    self.db = MongoClient(mongo_url).tasks
