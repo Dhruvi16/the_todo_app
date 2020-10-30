@@ -14,11 +14,11 @@ class MongoRepository(object):
  def find(self, selector):
    return self.db.tasks.find_one(selector)
  
- def create(self, kudo):
-   return self.db.tasks.insert_one(kudo)
+ def create(self, task):
+   return self.db.tasks.insert_one(task)
 
- def update(self, selector, kudo):
-   return self.db.tasks.replace_one(selector, kudo).modified_count
+ def update(self, selector, task):
+   return self.db.tasks.replace_one(selector, task).modified_count
  
  def delete(self, selector):
    return self.db.tasks.delete_one(selector).deleted_count
