@@ -10,10 +10,12 @@ CORS(app)
 @app.route("/tasks", methods=["GET"])
 @login_required
 def index():
+ response.headers.add("Access-Control-Allow-Origin", "*")
  return json_response(Task(g.user).find_all_tasks())
 
 
 @app.route("/tasks", methods=["POST"])
+@cross_origin()
 @login_required
 def create():
    new_task = TaskSchema().load(json.loads(request.data))
@@ -25,7 +27,7 @@ def create():
    return json_response(task)
 
 
-@app.route("/task/<int:task_id>", methods=["GET"])
+@app.route("/tasks/<int:task_id>", methods=["GET"])
 @login_required
 def show(task_id):
  task = Task(g.user).find_task(task_id)
@@ -36,10 +38,12 @@ def show(task_id):
    return json_response({'error': 'task not found'}, 404)
 
 
-@app.route("/task/<int:task_id>", methods=["PUT"])
+@app.route("/tasks/<int:task_id>", methods=["PUT"])
+@cross_origin()
 @login_required
 def update(task_id):
    new_task = TaskSchema().load(json.loads(request.data))
+   response.headers.add("Access-Control-Allow-Origin", "*")
   
    if new_task.errors:
      return json_response({'error': new_task.errors}, 422)
@@ -51,7 +55,8 @@ def update(task_id):
      return json_response({'error': 'task not found'}, 404)
 
   
-@app.route("/task/<int:task_id>", methods=["DELETE"])
+@app.route("/tasks/<int:task_id>", methods=["DELETE"])
+@cross_origin()
 @login_required
 def delete(task_id):
  task_service = Task(g.user)
