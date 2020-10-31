@@ -17,7 +17,7 @@ class APIClient {
  }
 
  deleteTask(task) {
-   return this.perform('delete', `/task/${task.id}`);
+   return this.perform('delete', `/tasks/${task.id}`);
  }
 
  getTasks() {
